@@ -49,7 +49,7 @@ public class MainApp extends Application {
             while(scan.hasNextLine()){
                 String objectString = scan.nextLine();
                 Person person = mapStringToPerson(objectString);
-                String key = person.getFirstName()+"-"+person.getLastName()+"-"+person.getPhoneNumber();
+                String key = person.getFirstName().toString().toLowerCase()+"-"+person.getLastName().toLowerCase()+"-"+person.getPhoneNumber();
                 setOfRecords.add(key);
                 personData.add(person);
             }

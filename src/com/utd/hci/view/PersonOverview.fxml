@@ -91,7 +91,7 @@
                   <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                     <buttons>
                         <Button mnemonicParsing="false" onAction="#savePerson" text="Save" />
-                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="Clear" />
+                      <Button mnemonicParsing="false" onAction="#handleNewPerson" text="New" />
                         <Button mnemonicParsing="false" onAction="#handleDeletePerson" text="Delete" />
                     </buttons>
                   </ButtonBar>

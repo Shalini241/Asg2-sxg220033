@@ -115,7 +115,7 @@ public class PersonController {
             emailField.setText(person.getEmail());
             dateReceivedField.setValue(person.getDateReceived());
 
-            if(!person.getGender().equals("null"))
+            if(person.getGender()!=null && !person.getGender().equals("null"))
                 genderField.getSelectionModel().select(person.getGender());
             if(person.isProofOfPurchaseAttached()) {
                 proofOfPurchaseField.getSelectionModel().select("Yes");
@@ -187,15 +187,29 @@ public class PersonController {
     private void savePerson() throws IOException {
         if(isFormDataValidToSave()){
             Person tempPerson = createPerson();
-            String key = tempPerson.getFirstName()+"-"+tempPerson.getLastName()+"-"+tempPerson.getPhoneNumber();
-            if(mainApp.setOfRecords.contains(key)){
-                message.setText("Duplicate record: \nPlease change first name, last name or phone number");
-                message.setTextFill(Paint.valueOf("#f71505"));
-                return;
-            }
+            String key = tempPerson.getFirstName().toString().toLowerCase()+"-"+tempPerson.getLastName().toLowerCase()+"-"+tempPerson.getPhoneNumber();
+
+            String toEditPersonKey = "";
+
+            // In case of edit
             if(personTable.getSelectionModel().getSelectedItem() != null){
+                Person editPerson = personTable.getSelectionModel().getSelectedItem();
+                toEditPersonKey = editPerson.getFirstName().toString().toLowerCase()+"-"+editPerson.getLastName().toLowerCase()+"-"+editPerson.getPhoneNumber();
+                if(mainApp.setOfRecords.contains(key) && !toEditPersonKey.equals(key)){
+                    message.setText("Duplicate record: \nPlease change first name, last name or phone number");
+                    message.setTextFill(Paint.valueOf("#f71505"));
+                    return;
+                }
                 handleDeletePerson();
+            } else {
+                if(mainApp.setOfRecords.contains(key)){
+                    message.setText("Duplicate record: \nPlease change first name, last name or phone number");
+                    message.setTextFill(Paint.valueOf("#f71505"));
+                    return;
+                }
             }
+
+
 
             FileWriter myWriter = new FileWriter("CS6326Asg2.txt", true);
             myWriter.write(tempPerson.toString());
