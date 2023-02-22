@@ -127,7 +127,7 @@ public class MainApp extends Application {
         while(objectString.charAt(index++)!='{');
         objectString = objectString.substring(index, objectString.length()-1);
         HashMap<String, String> fieldMap = new HashMap<>();
-        String [] fields = objectString.split(",");
+        String [] fields = objectString.split("\t");
         for(String field : fields){
             String[] data = field.split("=");
             fieldMap.put(data[0].trim(), data[1].replace('\'',' ').trim());

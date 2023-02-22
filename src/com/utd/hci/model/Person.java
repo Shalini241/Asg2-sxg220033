@@ -161,21 +161,21 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "firstName=" + firstName.getValue() +
-                ", middleInitial='" + middleInitial + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", line1='" + line1 + '\'' +
-                ", line2='" + line2 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipcode=" + zipcode +
-                ", gender='" + gender + '\'' +
-                ", phoneNumber=" + phoneNumber.getValue() +
-                ", email='" + email + '\'' +
-                ", proofOfPurchaseAttached=" + proofOfPurchaseAttached +
-                ", dateReceived=" + dateReceived +
-                ", formStartedAt=" + formStartedAt +
-                ", formSavedAt=" + formSavedAt +
-                ", backspaceCounter=" + backspaceCounter +
+                "\t middleInitial='" + middleInitial + '\'' +
+                "\t lastName='" + lastName + '\'' +
+                "\t line1='" + line1 + '\'' +
+                "\t line2='" + line2 + '\'' +
+                "\t city='" + city + '\'' +
+                "\t state='" + state + '\'' +
+                "\t zipcode=" + zipcode +
+                "\t gender='" + gender + '\'' +
+                "\t phoneNumber=" + phoneNumber.getValue() +
+                "\t email='" + email + '\'' +
+                "\t proofOfPurchaseAttached=" + proofOfPurchaseAttached +
+                "\t dateReceived=" + dateReceived +
+                "\t formStartedAt=" + formStartedAt +
+                "\t formSavedAt=" + formSavedAt +
+                "\t backspaceCounter=" + backspaceCounter +
                 '}';
     }
 }
