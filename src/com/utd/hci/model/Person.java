@@ -133,24 +133,12 @@ public class Person {
         this.dateReceived = dateReceived;
     }
 
-    public String getFormStartedAt() {
-        return formStartedAt;
-    }
-
     public void setFormStartedAt(String formStartedAt) {
         this.formStartedAt = formStartedAt;
     }
 
-    public String getFormSavedAt() {
-        return formSavedAt;
-    }
-
     public void setFormSavedAt(String formSavedAt) {
         this.formSavedAt = formSavedAt;
-    }
-
-    public int getBackspaceCounter() {
-        return backspaceCounter;
     }
 
     public void setBackspaceCounter(int backspaceCounter) {

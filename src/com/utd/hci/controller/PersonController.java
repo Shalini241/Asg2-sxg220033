@@ -56,6 +56,11 @@ public class PersonController {
     private boolean isFormFillingStarted;
     private LocalDateTime formFillingStartedAt;
 
+    private final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@(.+)$";
+    private final String ZIP_CODE_REGEX = "^[0-9]{5}-[0-9]{4}|[0-9]{5}$";
+    private final String US_PHONE_NUMBER_REGEX = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$";
+    private final String ALPHABETIC_REGEX = "^[A-Za-z]*$";
+
     // Reference to the main application.
     private MainApp mainApp;
 
@@ -80,7 +85,7 @@ public class PersonController {
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
 
         Platform.runLater(() -> firstNameField.requestFocus());
-        addInputValidation();
+        addInputValidationListeners();
         setDateDefaultValue();
     }
 
@@ -209,8 +214,6 @@ public class PersonController {
                 }
             }
 
-
-
             FileWriter myWriter = new FileWriter("CS6326Asg2.txt", true);
             myWriter.write(tempPerson.toString());
             myWriter.append('\n');
@@ -221,8 +224,6 @@ public class PersonController {
 
         }
     }
-
-    //Start of helper functions to validate input form data
 
     /**
      * Called when the user clicks the save button. It maps the form
@@ -289,41 +290,24 @@ public class PersonController {
         });
     }
 
-    private void emailValidation(){
-        if(!Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$")
-                .matcher(emailField.getText())
-                .matches()){
-            emailField.setStyle("-fx-control-inner-background: #"+ Paint.valueOf("#f7c6c9").toString().substring(2));
-        } else {
-            emailField.setStyle(null);
-        }
+    /**
+     * Adding Listener to textfield to check the desired pattern of the input
+     */
+    private void regexValidationListener(TextField tf, String pattern){
+        tf.focusedProperty().addListener((observableValue, old, newval) -> {
+            if(tf.getText().length() > 0 && !newval){
+                regexValidation(tf, pattern);
+            }
+        });
     }
 
-    private void usPhoneNumberValidation(){
-        if(!Pattern.compile("^[0-9]{3}-[0-9]{3}-[0-9]{4}$")
-                .matcher(phoneNumberField.getText())
+    private void regexValidation(TextField textField, String pattern){
+        if(!Pattern.compile(pattern)
+                .matcher(textField.getText())
                 .matches()){
-            phoneNumberField.setStyle("-fx-control-inner-background: #"+ Paint.valueOf("#f7c6c9").toString().substring(2));
+            textField.setStyle("-fx-control-inner-background: #"+ Paint.valueOf("#f7c6c9").toString().substring(2));
         } else {
-            phoneNumberField.setStyle(null);
-        }
-    }
-
-    private void zipCodeValidation(){
-        if(!Pattern.compile("^[0-9]{5}-[0-9]{4}$")
-                .matcher(zipCodeField.getText())
-                .matches()){
-            zipCodeField.setStyle("-fx-control-inner-background: #"+ Paint.valueOf("#f7c6c9").toString().substring(2));
-        } else {
-            zipCodeField.setStyle(null);
-        }
-    }
-
-    private void textFieldAlphanumericValidation(TextField tf){
-        if(!Pattern.compile("^[A-Za-z]*$")
-                .matcher(tf.getText())
-                .matches()){
-            tf.setStyle("-fx-control-inner-background: #"+ Paint.valueOf("#f7c6c9").toString().substring(2));
+            textField.setStyle(null);
         }
     }
 
@@ -338,7 +322,7 @@ public class PersonController {
     /**
      * Attaches listener to the textfields
      */
-    private void addInputValidation(){
+    private void addInputValidationListeners(){
         addOptionalTextLimiterListener(firstNameField, 25);
         addOptionalTextLimiterListener(middleInitialField, 1);
         addOptionalTextLimiterListener(lastNameField, 25);
@@ -362,6 +346,10 @@ public class PersonController {
         backspaceKeyEventListener(phoneNumberField);
         backspaceKeyEventListener(emailField);
 
+        regexValidationListener(emailField, EMAIL_REGEX);
+        regexValidationListener(zipCodeField, ZIP_CODE_REGEX);
+        regexValidationListener(phoneNumberField, US_PHONE_NUMBER_REGEX);
+
     }
 
     private void setDateDefaultValue() {
@@ -380,19 +368,21 @@ public class PersonController {
      */
     private boolean isFormDataValidToSave(){
 
+        regexValidation(firstNameField, ALPHABETIC_REGEX);
+        regexValidation(middleInitialField, ALPHABETIC_REGEX);
+        regexValidation(lastNameField, ALPHABETIC_REGEX);
+        regexValidation(cityField, ALPHABETIC_REGEX);
+        regexValidation(stateField , ALPHABETIC_REGEX);
+        regexValidation(emailField, EMAIL_REGEX);
+        regexValidation(zipCodeField, ZIP_CODE_REGEX);
+        regexValidation(phoneNumberField, US_PHONE_NUMBER_REGEX);
+
         addEmptyValueCheck(firstNameField);
         addEmptyValueCheck(lastNameField);
         addEmptyValueCheck(addressLine1Field);
         addEmptyValueCheck(cityField);
         addEmptyValueCheck(stateField);
-        textFieldAlphanumericValidation(firstNameField);
-        textFieldAlphanumericValidation(middleInitialField);
-        textFieldAlphanumericValidation(lastNameField);
-        textFieldAlphanumericValidation(cityField);
-        textFieldAlphanumericValidation(stateField);
-        emailValidation();
-        usPhoneNumberValidation();
-        zipCodeValidation();
+
 
         if(firstNameField.getStyle().length() != 0 || lastNameField.getStyle().length()!=0 || addressLine1Field.getStyle().length() != 0
                 || cityField.getStyle().length() != 0 || stateField.getStyle().length() != 0 || zipCodeField.getStyle().length() != 0
@@ -403,7 +393,6 @@ public class PersonController {
             proofOfPurchaseField.setStyle("-fx-outer-border: #"+ Paint.valueOf("#f71505").toString().substring(2));
             return false;
         }
-
 
         return true;
     }
