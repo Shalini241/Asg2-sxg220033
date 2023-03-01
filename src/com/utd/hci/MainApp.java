@@ -42,10 +42,10 @@ public class MainApp extends Application {
      */
     public MainApp() {
 
-        File file = new File("CS6326Asg2.txt");
+        setOfRecords = new HashSet<>();
         try {
+            File file = new File("CS6326Asg2.txt");
             Scanner scan = new Scanner(file);
-            setOfRecords = new HashSet<>();
             while(scan.hasNextLine()){
                 String objectString = scan.nextLine();
                 Person person = mapStringToPerson(objectString);
