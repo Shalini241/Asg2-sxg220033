@@ -346,9 +346,9 @@ public class PersonController {
         backspaceKeyEventListener(phoneNumberField);
         backspaceKeyEventListener(emailField);
 
-        regexValidationListener(emailField, EMAIL_REGEX);
-        regexValidationListener(zipCodeField, ZIP_CODE_REGEX);
-        regexValidationListener(phoneNumberField, US_PHONE_NUMBER_REGEX);
+//        regexValidationListener(emailField, EMAIL_REGEX);
+//        regexValidationListener(zipCodeField, ZIP_CODE_REGEX);
+//        regexValidationListener(phoneNumberField, US_PHONE_NUMBER_REGEX);
 
     }
 
@@ -368,14 +368,14 @@ public class PersonController {
      */
     private boolean isFormDataValidToSave(){
 
-        regexValidation(firstNameField, ALPHABETIC_REGEX);
-        regexValidation(middleInitialField, ALPHABETIC_REGEX);
-        regexValidation(lastNameField, ALPHABETIC_REGEX);
-        regexValidation(cityField, ALPHABETIC_REGEX);
-        regexValidation(stateField , ALPHABETIC_REGEX);
-        regexValidation(emailField, EMAIL_REGEX);
-        regexValidation(zipCodeField, ZIP_CODE_REGEX);
-        regexValidation(phoneNumberField, US_PHONE_NUMBER_REGEX);
+//        regexValidation(firstNameField, ALPHABETIC_REGEX);
+//        regexValidation(middleInitialField, ALPHABETIC_REGEX);
+//        regexValidation(lastNameField, ALPHABETIC_REGEX);
+//        regexValidation(cityField, ALPHABETIC_REGEX);
+//        regexValidation(stateField , ALPHABETIC_REGEX);
+//        regexValidation(emailField, EMAIL_REGEX);
+//        regexValidation(zipCodeField, ZIP_CODE_REGEX);
+//        regexValidation(phoneNumberField, US_PHONE_NUMBER_REGEX);
 
         addEmptyValueCheck(firstNameField);
         addEmptyValueCheck(lastNameField);
